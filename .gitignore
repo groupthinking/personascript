@@ -31,3 +31,4 @@ venv.bak/
 *.swo
 *~
 .DS_Store
+results.json
