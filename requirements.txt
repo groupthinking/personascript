@@ -1,0 +1,19 @@
+# PersonaScript Requirements
+# Python 3.8+
+
+# Core dependencies
+dataclasses>=0.6; python_version < '3.7'
+
+# Testing dependencies (optional)
+pytest>=7.0.0
+pytest-cov>=3.0.0
+
+# Type checking (optional)
+mypy>=0.950
+
+# Note: In a production environment, you would add:
+# - requests (for API calls)
+# - google-auth (for Google API authentication)
+# - google-api-python-client (for Google Docs API)
+# - PyGithub or requests (for GitHub API)
+# - miro-python-sdk (if available, or use requests)
