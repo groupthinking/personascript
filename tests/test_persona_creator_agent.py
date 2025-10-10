@@ -3,6 +3,7 @@ Unit tests for PersonaScriptPersonaCreatorAgent.
 """
 
 import pytest
+from urllib.parse import urlparse
 from src.agents.persona_creator_agent import (
     PersonaScriptPersonaCreatorAgent,
     AgentInputs,
@@ -126,8 +127,10 @@ def test_create_miro_board(agent, sample_inputs):
     miro_url = agent._create_miro_board(personas)
     
     assert miro_url
-    assert "miro.com" in miro_url
-    assert miro_url.startswith("https://")
+    # Use proper URL parsing for validation
+    parsed = urlparse(miro_url)
+    assert parsed.scheme == "https"
+    assert "miro.com" in parsed.netloc
 
 
 def test_create_google_doc(agent, sample_inputs):
@@ -140,8 +143,10 @@ def test_create_google_doc(agent, sample_inputs):
     docs_url = agent._create_google_doc(journey_maps)
     
     assert docs_url
-    assert "docs.google.com" in docs_url
-    assert docs_url.startswith("https://")
+    # Use proper URL parsing for validation
+    parsed = urlparse(docs_url)
+    assert parsed.scheme == "https"
+    assert "docs.google.com" in parsed.netloc
 
 
 def test_create_github_issue(agent, sample_inputs):
@@ -152,9 +157,11 @@ def test_create_github_issue(agent, sample_inputs):
     github_url = agent._create_github_issue(miro_url, docs_url, sample_inputs)
     
     assert github_url
-    assert "github.com" in github_url
-    assert "issues" in github_url
-    assert github_url.startswith("https://")
+    # Use proper URL parsing for validation
+    parsed = urlparse(github_url)
+    assert parsed.scheme == "https"
+    assert "github.com" in parsed.netloc
+    assert "issues" in parsed.path
 
 
 def test_full_execution(agent, sample_inputs):
@@ -168,10 +175,19 @@ def test_full_execution(agent, sample_inputs):
     assert len(outputs.personas) > 0
     assert len(outputs.journey_maps) > 0
     
-    # Check URLs are valid
-    assert "miro.com" in outputs.miro_board_url
-    assert "docs.google.com" in outputs.google_docs_url
-    assert "github.com" in outputs.github_issue_url
+    # Check URLs are valid using proper URL parsing
+    miro_parsed = urlparse(outputs.miro_board_url)
+    assert miro_parsed.scheme == "https"
+    assert "miro.com" in miro_parsed.netloc
+    
+    docs_parsed = urlparse(outputs.google_docs_url)
+    assert docs_parsed.scheme == "https"
+    assert "docs.google.com" in docs_parsed.netloc
+    
+    github_parsed = urlparse(outputs.github_issue_url)
+    assert github_parsed.scheme == "https"
+    assert "github.com" in github_parsed.netloc
+    assert "issues" in github_parsed.path
     
     # Check personas were stored
     assert len(agent.personas) == len(outputs.personas)

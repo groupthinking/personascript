@@ -1,6 +1,7 @@
 """Tests for integration modules."""
 
 import pytest
+from urllib.parse import urlparse
 from src.integrations.miro_integration import MiroIntegration
 from src.integrations.google_docs_integration import GoogleDocsIntegration
 from src.integrations.github_integration import GitHubIntegration
@@ -28,7 +29,10 @@ class TestMiroIntegration:
         
         url = integration.create_board(board_data)
         assert url
-        assert "miro.com" in url
+        # Use proper URL parsing for validation
+        parsed = urlparse(url)
+        assert parsed.scheme == "https"
+        assert "miro.com" in parsed.netloc
     
     def test_add_persona_card(self):
         """Test adding persona card."""
@@ -61,7 +65,10 @@ class TestGoogleDocsIntegration:
             content="Test content"
         )
         assert url
-        assert "docs.google.com" in url
+        # Use proper URL parsing for validation
+        parsed = urlparse(url)
+        assert parsed.scheme == "https"
+        assert "docs.google.com" in parsed.netloc
     
     def test_append_content(self):
         """Test content appending."""
@@ -99,8 +106,11 @@ class TestGitHubIntegration:
             labels=["test"]
         )
         assert url
-        assert "github.com" in url
-        assert "issues" in url
+        # Use proper URL parsing for validation
+        parsed = urlparse(url)
+        assert parsed.scheme == "https"
+        assert "github.com" in parsed.netloc
+        assert "issues" in parsed.path
     
     def test_add_comment(self):
         """Test adding comment."""

@@ -24,7 +24,9 @@ class GitHubIntegration:
         self.token = token
         self.repo = repo
         self.base_url = "https://api.github.com"
-        logger.info(f"GitHubIntegration initialized for repo: {repo}")
+        # Mask repo information in logs to avoid potential sensitive data exposure
+        masked_repo = repo.split('/')[0] + "/***" if repo and '/' in repo else "***"
+        logger.info(f"GitHubIntegration initialized for repo: {masked_repo}")
     
     def create_issue(
         self,
