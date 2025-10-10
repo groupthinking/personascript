@@ -32,7 +32,8 @@ class TestMiroIntegration:
         # Use proper URL parsing for validation
         parsed = urlparse(url)
         assert parsed.scheme == "https"
-        assert "miro.com" in parsed.netloc
+        # Validate that netloc ends with expected domain
+        assert parsed.netloc.endswith("miro.com")
     
     def test_add_persona_card(self):
         """Test adding persona card."""
@@ -68,7 +69,8 @@ class TestGoogleDocsIntegration:
         # Use proper URL parsing for validation
         parsed = urlparse(url)
         assert parsed.scheme == "https"
-        assert "docs.google.com" in parsed.netloc
+        # Validate that netloc ends with expected domain
+        assert parsed.netloc.endswith("docs.google.com")
     
     def test_append_content(self):
         """Test content appending."""
@@ -109,8 +111,10 @@ class TestGitHubIntegration:
         # Use proper URL parsing for validation
         parsed = urlparse(url)
         assert parsed.scheme == "https"
-        assert "github.com" in parsed.netloc
-        assert "issues" in parsed.path
+        # Validate that netloc ends with expected domain
+        assert parsed.netloc.endswith("github.com")
+        # Check path contains "issues"
+        assert parsed.path.startswith("/") and "issues" in parsed.path.split("/")
     
     def test_add_comment(self):
         """Test adding comment."""

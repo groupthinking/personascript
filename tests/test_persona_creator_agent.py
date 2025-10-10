@@ -130,7 +130,8 @@ def test_create_miro_board(agent, sample_inputs):
     # Use proper URL parsing for validation
     parsed = urlparse(miro_url)
     assert parsed.scheme == "https"
-    assert "miro.com" in parsed.netloc
+    # Validate that netloc ends with expected domain
+    assert parsed.netloc.endswith("miro.com")
 
 
 def test_create_google_doc(agent, sample_inputs):
@@ -146,7 +147,8 @@ def test_create_google_doc(agent, sample_inputs):
     # Use proper URL parsing for validation
     parsed = urlparse(docs_url)
     assert parsed.scheme == "https"
-    assert "docs.google.com" in parsed.netloc
+    # Validate that netloc ends with expected domain
+    assert parsed.netloc.endswith("docs.google.com")
 
 
 def test_create_github_issue(agent, sample_inputs):
@@ -160,8 +162,10 @@ def test_create_github_issue(agent, sample_inputs):
     # Use proper URL parsing for validation
     parsed = urlparse(github_url)
     assert parsed.scheme == "https"
-    assert "github.com" in parsed.netloc
-    assert "issues" in parsed.path
+    # Validate that netloc ends with expected domain
+    assert parsed.netloc.endswith("github.com")
+    # Check path contains "issues"
+    assert parsed.path.startswith("/") and "issues" in parsed.path.split("/")
 
 
 def test_full_execution(agent, sample_inputs):
@@ -178,16 +182,20 @@ def test_full_execution(agent, sample_inputs):
     # Check URLs are valid using proper URL parsing
     miro_parsed = urlparse(outputs.miro_board_url)
     assert miro_parsed.scheme == "https"
-    assert "miro.com" in miro_parsed.netloc
+    # Validate that netloc ends with expected domain
+    assert miro_parsed.netloc.endswith("miro.com")
     
     docs_parsed = urlparse(outputs.google_docs_url)
     assert docs_parsed.scheme == "https"
-    assert "docs.google.com" in docs_parsed.netloc
+    # Validate that netloc ends with expected domain
+    assert docs_parsed.netloc.endswith("docs.google.com")
     
     github_parsed = urlparse(outputs.github_issue_url)
     assert github_parsed.scheme == "https"
-    assert "github.com" in github_parsed.netloc
-    assert "issues" in github_parsed.path
+    # Validate that netloc ends with expected domain
+    assert github_parsed.netloc.endswith("github.com")
+    # Check path contains "issues"
+    assert github_parsed.path.startswith("/") and "issues" in github_parsed.path.split("/")
     
     # Check personas were stored
     assert len(agent.personas) == len(outputs.personas)
