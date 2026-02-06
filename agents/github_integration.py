@@ -3,7 +3,7 @@ GitHub Integration Module
 Creates GitHub issues with analysis results
 """
 import logging
-from typing import Dict, Any
+from typing import Dict
 import requests
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ class GitHubIssueCreator:
                 "labels": ["user-research", "feature-request", "analysis"]
             }
             
-            response = requests.post(url, headers=headers, json=payload)
+            response = requests.post(url, headers=headers, json=payload, timeout=30)
             
             if response.status_code == 201:
                 issue_data = response.json()

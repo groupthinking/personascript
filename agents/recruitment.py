@@ -4,7 +4,6 @@ Handles recruiting participants via UserTesting.com API
 """
 import logging
 from typing import List, Dict, Any
-import requests
 
 logger = logging.getLogger(__name__)
 

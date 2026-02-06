@@ -10,7 +10,7 @@ class TestUserInterviewAnalysisAgent(unittest.TestCase):
     """Test cases for UserInterviewAnalysisAgent"""
     
     def setUp(self):
-        """Set up test configuration"""
+        """Set up test configuration with empty credentials for mock testing"""
         self.config = AgentConfig(
             openai_api_key="",
             zoom_client_id="",
@@ -159,7 +159,6 @@ class TestPainPointAnalyzer(unittest.TestCase):
         """Test severity assessment"""
         high_text = "This is our biggest challenge and critical issue"
         medium_text = "This is a challenging problem we face"
-        low_text = "We sometimes encounter this"
         
         self.assertEqual(
             self.analyzer._assess_severity(high_text, ["challenge"]),
@@ -197,10 +196,10 @@ class TestFeatureWishListGenerator(unittest.TestCase):
     
     def test_score_to_priority(self):
         """Test priority scoring"""
-        self.assertEqual(self.generator._score_to_priority(80), "Critical")
-        self.assertEqual(self.generator._score_to_priority(60), "High")
-        self.assertEqual(self.generator._score_to_priority(40), "Medium")
-        self.assertEqual(self.generator._score_to_priority(20), "Low")
+        self.assertEqual(self.generator._convert_score_to_priority_level(80), "Critical")
+        self.assertEqual(self.generator._convert_score_to_priority_level(60), "High")
+        self.assertEqual(self.generator._convert_score_to_priority_level(40), "Medium")
+        self.assertEqual(self.generator._convert_score_to_priority_level(20), "Low")
 
 
 if __name__ == "__main__":

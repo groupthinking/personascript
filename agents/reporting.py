@@ -4,8 +4,6 @@ Creates and publishes reports to Notion
 """
 import logging
 from typing import List, Dict, Any
-import requests
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -73,8 +71,8 @@ class NotionReporter:
     ) -> str:
         """Create pain point analysis page in Notion"""
         
-        # Build page content
-        content = self._build_pain_point_content(report, transcripts)
+        # Build page content (for future Notion API implementation)
+        _content = self._build_pain_point_content(report, transcripts)
         
         if not self.api_key:
             return f"https://notion.so/pain-point-analysis-mock"
@@ -90,8 +88,8 @@ class NotionReporter:
     ) -> str:
         """Create feature wishlist page in Notion"""
         
-        # Build page content
-        content = self._build_feature_content(features, transcripts)
+        # Build page content (for future Notion API implementation)
+        _content = self._build_feature_content(features, transcripts)
         
         if not self.api_key:
             return f"https://notion.so/feature-wishlist-mock"

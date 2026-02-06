@@ -169,10 +169,16 @@ class UserInterviewAnalysisAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error during execution: {str(e)}", exc_info=True)
+            # Log detailed error internally while sanitizing external error messages
+            logger.error("Error during execution", exc_info=True)
             return {
                 "status": "error",
-                "error": str(e),
+                "error": "An error occurred during execution. Check logs for details.",
+                "pain_point_analysis_url": None,
+                "feature_wishlist_url": None,
+                "recording_urls": [],
+                "transcript_urls": [],
+                "github_issue_url": None,
                 "execution_log": self.execution_log
             }
     

@@ -12,6 +12,17 @@ logger = logging.getLogger(__name__)
 class FeatureWishListGenerator:
     """Generates and prioritizes feature wish list from interviews"""
     
+    # Scoring weights (must sum to 100)
+    FREQUENCY_MAX_SCORE = 40  # Maximum points for frequency of mention
+    EXPLICIT_MENTION_MAX_SCORE = 20  # Maximum points for explicit mentions
+    ALIGNMENT_MAX_SCORE = 40  # Maximum points for value proposition alignment
+    
+    # Priority thresholds
+    PRIORITY_CRITICAL_THRESHOLD = 70  # Score >= 70 is Critical priority
+    PRIORITY_HIGH_THRESHOLD = 50  # Score >= 50 is High priority
+    PRIORITY_MEDIUM_THRESHOLD = 30  # Score >= 30 is Medium priority
+    # Score < 30 is Low priority
+    
     def __init__(self, config):
         self.config = config
         self.client = OpenAI(api_key=config.openai_api_key) if config.openai_api_key else None
@@ -189,17 +200,17 @@ class FeatureWishListGenerator:
             score = 0
             
             # Frequency score (0-40 points)
-            score += min(feature['frequency'] * 4, 40)
+            score += min(feature['frequency'] * 4, self.FREQUENCY_MAX_SCORE)
             
             # Explicit mention bonus (0-20 points)
-            score += min(feature['explicit_mentions'] * 5, 20)
+            score += min(feature['explicit_mentions'] * 5, self.EXPLICIT_MENTION_MAX_SCORE)
             
             # Alignment with value proposition (0-40 points)
             alignment = self._calculate_alignment(feature, value_proposition)
             score += alignment
             
             feature['priority_score'] = score
-            feature['priority'] = self._score_to_priority(score)
+            feature['priority'] = self._convert_score_to_priority_level(score)
         
         # Sort by priority score
         prioritized = sorted(features, key=lambda x: x['priority_score'], reverse=True)
@@ -224,15 +235,15 @@ class FeatureWishListGenerator:
             if any(kw in vp_lower for kw in keywords) and any(kw in feature_lower for kw in keywords):
                 score += 10
         
-        return min(score, 40)
+        return min(score, self.ALIGNMENT_MAX_SCORE)
     
-    def _score_to_priority(self, score: int) -> str:
+    def _convert_score_to_priority_level(self, score: int) -> str:
         """Convert numeric score to priority label"""
-        if score >= 70:
+        if score >= self.PRIORITY_CRITICAL_THRESHOLD:
             return "Critical"
-        elif score >= 50:
+        elif score >= self.PRIORITY_HIGH_THRESHOLD:
             return "High"
-        elif score >= 30:
+        elif score >= self.PRIORITY_MEDIUM_THRESHOLD:
             return "Medium"
         return "Low"
     

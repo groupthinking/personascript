@@ -2,7 +2,6 @@
 Configuration management for UserInterviewAnalysisAgent
 """
 import os
-from typing import Optional
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -34,7 +33,10 @@ class AgentConfig(BaseModel):
     
     # Agent Configuration
     value_proposition: str = Field(
-        default="PersonaScript empowers growth-stage B2B SaaS marketing teams to rapidly generate high-volume, hyper-personalized, and brand-aligned content across all sales funnel stages, dramatically accelerating lead conversion and brand consistency."
+        default_factory=lambda: os.getenv(
+            "VALUE_PROPOSITION",
+            "PersonaScript empowers growth-stage B2B SaaS marketing teams to rapidly generate high-volume, hyper-personalized, and brand-aligned content across all sales funnel stages, dramatically accelerating lead conversion and brand consistency."
+        )
     )
     target_interview_count: int = Field(default=20)
     interview_duration_minutes: int = Field(default=30)

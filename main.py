@@ -82,7 +82,7 @@ def main():
         logger.info("="*80)
         
         # Save results to file
-        with open('results.json', 'w') as f:
+        with open('results.json', 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2)
         logger.info("\nDetailed results saved to results.json")
         
