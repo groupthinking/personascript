@@ -8,12 +8,12 @@ An intelligent agent that conducts comprehensive user interviews with target mar
 
 ### Features
 
-- **Automated Interview Management**: Recruits participants, schedules sessions, and conducts interviews via Zoom
-- **AI-Powered Transcription**: Converts interview recordings to text using OpenAI Whisper
-- **Advanced Pain Point Analysis**: Uses NLP to identify, categorize, and prioritize pain points
+- **Automated Interview Workflow**: Simulates recruitment, scheduling, recording, and reporting flows end-to-end
+- **Generated Transcripts**: Produces realistic transcript artifacts for testing and demos
+- **Advanced Pain Point Analysis**: Uses deterministic extraction to identify, categorize, and prioritize pain points
 - **Feature Extraction**: Automatically extracts and ranks feature suggestions based on frequency and alignment
-- **Notion Integration**: Publishes comprehensive reports directly to Notion
-- **GitHub Integration**: Creates detailed GitHub issues with findings and recommendations
+- **Report Scaffolding**: Produces report structures and placeholder Notion URLs for downstream publishing
+- **GitHub Integration**: Creates detailed GitHub issues with findings and recommendations when a token is configured
 
 ### Architecture
 
@@ -24,12 +24,12 @@ agents/
 ├── user_interview_agent.py    # Main agent orchestrator
 ├── config.py                   # Configuration management
 ├── interview_generator.py      # Question generation
-├── recruitment.py              # Participant recruitment (UserTesting.com)
-├── scheduling.py               # Interview scheduling (Zoom)
-├── transcription.py            # Speech-to-text (OpenAI Whisper)
-├── analysis.py                 # Pain point analysis (NLP)
+├── recruitment.py              # Participant recruitment simulation
+├── scheduling.py               # Interview scheduling simulation
+├── transcription.py            # Transcript generation simulation
+├── analysis.py                 # Pain point analysis
 ├── feature_extractor.py        # Feature wish list generation
-├── reporting.py                # Notion report publishing
+├── reporting.py                # Report URL scaffolding
 └── github_integration.py       # GitHub issue creation
 ```
 
@@ -118,13 +118,13 @@ The agent follows a 12-step workflow:
 1. **Parse Context** - Analyzes value proposition and target profile
 2. **Generate Questions** - Creates comprehensive interview questions
 3. **Recruit Participants** - Finds 20+ target marketing leaders
-4. **Schedule Interviews** - Books 30-minute sessions via Zoom
+4. **Schedule Interviews** - Creates simulated 30-minute sessions
 5. **Conduct Interviews** - Facilitates and records sessions
-6. **Transcribe** - Converts audio to text using AI
+6. **Transcribe** - Generates transcript artifacts from simulated recordings
 7. **Analyze Pain Points** - Performs NLP analysis on transcripts
 8. **Synthesize Report** - Creates detailed pain point analysis
 9. **Extract Features** - Identifies and prioritizes feature suggestions
-10. **Create Notion Reports** - Publishes analysis to Notion
+10. **Create Notion Reports** - Produces report URLs and structures for publishing
 11. **Construct Issue** - Prepares GitHub issue content
 12. **Create GitHub Issue** - Posts findings to repository
 
@@ -132,15 +132,15 @@ The agent follows a 12-step workflow:
 
 The agent generates:
 
-- **Pain Point Analysis Report** (Notion): Detailed breakdown of identified challenges
-- **Prioritized Feature Wish List** (Notion): Ranked feature suggestions
-- **Interview Recordings** (Zoom): Video/audio files of sessions
+- **Pain Point Analysis Report** (placeholder URL): Detailed breakdown of identified challenges
+- **Prioritized Feature Wish List** (placeholder URL): Ranked feature suggestions
+- **Interview Recordings** (simulated): Video/audio file metadata for sessions
 - **Transcripts**: Text versions of all interviews
 - **GitHub Issue**: Comprehensive summary with links to all artifacts
 
 ### Testing
 
-The agent includes mock implementations for all external services, allowing you to test without API credentials:
+The agent includes simulated implementations for most external services, allowing you to test without API credentials:
 
 ```bash
 # Run without credentials - uses mock data
@@ -149,7 +149,7 @@ python main.py
 
 ### Dependencies
 
-- `openai>=1.0.0` - AI capabilities (transcription, analysis, generation)
+- `openai>=1.0.0` - Optional OpenAI-backed question generation
 - `requests>=2.31.0` - API interactions
 - `python-dotenv>=1.0.0` - Environment configuration
 - `pydantic>=2.0.0` - Data validation

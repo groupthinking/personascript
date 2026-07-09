@@ -2,6 +2,7 @@
 Tests for UserInterviewAnalysisAgent
 """
 import unittest
+from unittest.mock import Mock, patch
 from agents.user_interview_agent import UserInterviewAnalysisAgent
 from agents.config import AgentConfig
 
@@ -61,6 +62,8 @@ class TestUserInterviewAnalysisAgent(unittest.TestCase):
         self.assertIn("github_issue_url", results)
         self.assertIn("recording_urls", results)
         self.assertIn("transcript_urls", results)
+        self.assertIn("pain_points", results)
+        self.assertIn("feature_wishlist", results)
         
         # Verify expected counts
         self.assertEqual(len(results["recording_urls"]), 20)
@@ -69,6 +72,40 @@ class TestUserInterviewAnalysisAgent(unittest.TestCase):
         # Verify execution log
         self.assertIn("execution_log", results)
         self.assertEqual(len(results["execution_log"]), 24)  # 12 steps * 2 (start/complete)
+    
+    def test_execute_resets_execution_log_between_runs(self):
+        """Test execution log is reset for each run"""
+        target_profile = {"title": ["VP of Marketing"], "industry": "B2B SaaS"}
+        
+        first_results = self.agent.execute(target_profile)
+        second_results = self.agent.execute(target_profile)
+        
+        self.assertEqual(first_results["status"], "success")
+        self.assertEqual(second_results["status"], "success")
+        self.assertEqual(len(first_results["execution_log"]), 24)
+        self.assertEqual(len(second_results["execution_log"]), 24)
+    
+    @patch("agents.github_integration.requests.post")
+    def test_execute_returns_error_when_github_issue_creation_fails(self, mock_post):
+        """Test execute surfaces GitHub issue creation failures"""
+        mock_post.return_value = Mock(status_code=500, text="server error")
+        
+        config = AgentConfig(
+            openai_api_key="",
+            zoom_client_id="",
+            zoom_client_secret="",
+            zoom_account_id="",
+            usertesting_api_key="",
+            notion_api_key="",
+            notion_database_id="",
+            github_token="test-token"
+        )
+        agent = UserInterviewAnalysisAgent(config)
+        
+        results = agent.execute({"title": ["VP of Marketing"], "industry": "B2B SaaS"})
+        
+        self.assertEqual(results["status"], "error")
+        self.assertIsNone(results["github_issue_url"])
     
     def test_construct_issue_content(self):
         """Test GitHub issue content construction"""
@@ -200,6 +237,22 @@ class TestFeatureWishListGenerator(unittest.TestCase):
         self.assertEqual(self.generator._convert_score_to_priority_level(60), "High")
         self.assertEqual(self.generator._convert_score_to_priority_level(40), "Medium")
         self.assertEqual(self.generator._convert_score_to_priority_level(20), "Low")
+    
+    def test_extract_mock_features_marks_keyword_matches_as_explicit(self):
+        """Test keyword matches count as explicit mentions in mock extraction"""
+        transcript = {
+            "id": "transcript_1",
+            "participant": {"name": "Test User"},
+            "text": "We need to generate better content at scale for every audience."
+        }
+        
+        features = self.generator._extract_mock_features(transcript, [])
+        extracted = next(
+            feature for feature in features
+            if feature["feature"] == "Automated content generation at scale"
+        )
+        
+        self.assertTrue(extracted["mentioned_explicitly"])
 
 
 if __name__ == "__main__":

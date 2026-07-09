@@ -16,12 +16,14 @@ For testing without API keys:
 python main.py
 ```
 
-For production with real APIs:
+For credentialed runs:
 ```bash
 cp .env.example .env
 # Edit .env with your API keys
 python main.py
 ```
+
+Note: the current implementation uses live GitHub issue creation when `GITHUB_TOKEN` is set, optional OpenAI question generation when `OPENAI_API_KEY` is set, and simulated recruitment/scheduling/transcription/report publishing for the remaining steps.
 
 ### 3. Run Your First Interview Analysis
 
@@ -79,11 +81,11 @@ if results['status'] == 'success':
 
 ✓ Interview question generation
 ✓ Participant recruitment simulation
-✓ Interview scheduling and recording
-✓ Automatic transcription
+✓ Interview scheduling and recording simulation
+✓ Automatic transcript generation
 ✓ Pain point analysis
 ✓ Feature wish list generation
-✓ Notion report publishing
+✓ Report URL generation
 ✓ GitHub issue creation
 
 ## Next Steps
@@ -96,7 +98,7 @@ if results['status'] == 'success':
 ## Troubleshooting
 
 **Q: Agent runs but uses mock data?**
-A: This is normal without API keys. Add keys to `.env` for real integrations.
+A: This is normal. Most integrations are simulated today; adding credentials enables GitHub issue creation and optional OpenAI question generation.
 
 **Q: How do I see what the agent is doing?**
 A: Check the console logs - they show each step in detail.

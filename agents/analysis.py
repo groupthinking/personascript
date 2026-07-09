@@ -1,10 +1,9 @@
 """
 Pain Point Analysis Module
-Performs NLP analysis on transcripts to identify pain points
+Performs rule-based analysis on transcripts to identify pain points
 """
 import logging
 from typing import List, Dict, Any
-from collections import Counter
 from openai import OpenAI
 
 logger = logging.getLogger(__name__)
@@ -44,25 +43,13 @@ class PainPointAnalyzer:
     def _extract_pain_points(self, transcript: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Extract pain points from a single transcript"""
         
-        if not self.client:
-            return self._extract_mock_pain_points(transcript)
-        
-        try:
-            # Use OpenAI to extract pain points
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are an expert at analyzing user interviews and extracting pain points. Identify specific pain points, challenges, and frustrations mentioned."},
-                    {"role": "user", "content": f"Extract pain points from this interview transcript:\n\n{transcript['text']}\n\nList each pain point with its category and severity (high/medium/low)."}
-                ],
-                temperature=0.3
+        if self.client:
+            logger.info(
+                "OpenAI client configured, but structured AI pain-point parsing is not "
+                "implemented; using keyword-based extraction"
             )
-            
-            return self._parse_pain_points_response(response.choices[0].message.content, transcript)
-            
-        except Exception as e:
-            logger.error(f"Error extracting pain points: {str(e)}")
-            return self._extract_mock_pain_points(transcript)
+
+        return self._extract_mock_pain_points(transcript)
     
     def _extract_mock_pain_points(self, transcript: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Extract mock pain points based on keywords"""

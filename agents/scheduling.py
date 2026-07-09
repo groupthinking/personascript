@@ -1,6 +1,6 @@
 """
 Interview Scheduling Module
-Handles scheduling and conducting interviews via Zoom API
+Simulates interview scheduling and recording with Zoom-shaped metadata
 """
 import logging
 from typing import List, Dict, Any
@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class InterviewScheduler:
-    """Manages interview scheduling and recording via Zoom"""
+    """Manages simulated interview scheduling and recording"""
     
     def __init__(self, config):
         self.config = config
@@ -36,35 +36,17 @@ class InterviewScheduler:
         """
         logger.info(f"Scheduling {len(participants)} interviews")
         
-        if not self._has_credentials():
-            logger.warning("Zoom credentials not configured, using mock scheduling")
-            return self._mock_schedule(participants, duration_minutes)
-        
-        try:
-            scheduled = []
-            start_time = datetime.utcnow() + timedelta(days=1)
-            
-            for i, participant in enumerate(participants):
-                # Space interviews 1 hour apart
-                interview_time = start_time + timedelta(hours=i)
-                
-                interview = {
-                    "id": f"interview_{i+1}",
-                    "participant": participant,
-                    "scheduled_time": interview_time.isoformat(),
-                    "duration_minutes": duration_minutes,
-                    "zoom_meeting_id": f"zoom_mock_{i+1}",
-                    "join_url": f"https://zoom.us/j/mock{i+1}",
-                    "status": "scheduled"
-                }
-                scheduled.append(interview)
-            
-            logger.info(f"Scheduled {len(scheduled)} interviews")
-            return scheduled
-            
-        except Exception as e:
-            logger.error(f"Error scheduling interviews: {str(e)}")
-            return self._mock_schedule(participants, duration_minutes)
+        if self._has_credentials():
+            logger.info(
+                "Zoom credentials detected, but live Zoom scheduling is not implemented; "
+                "using simulated schedule"
+            )
+        else:
+            logger.warning("Zoom credentials not configured, using simulated scheduling")
+
+        scheduled = self._mock_schedule(participants, duration_minutes)
+        logger.info(f"Scheduled {len(scheduled)} interviews")
+        return scheduled
     
     def conduct_interviews(self, scheduled_interviews: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """

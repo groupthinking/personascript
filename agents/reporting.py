@@ -1,6 +1,6 @@
 """
 Notion Reporting Module
-Creates and publishes reports to Notion
+Builds simulated report URLs and placeholder report structures
 """
 import logging
 from typing import List, Dict, Any
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class NotionReporter:
-    """Publishes reports to Notion"""
+    """Builds report scaffolding and simulated Notion URLs"""
     
     def __init__(self, config):
         self.config = config
@@ -41,28 +41,17 @@ class NotionReporter:
         """
         logger.info("Creating Notion reports")
         
-        if not self.api_key:
-            logger.warning("Notion API key not configured, using mock URLs")
-            return self._get_mock_urls()
-        
-        try:
-            # Create pain point report page
-            pain_point_url = self._create_pain_point_page(pain_point_report, transcripts)
-            
-            # Create feature wishlist page
-            feature_url = self._create_feature_wishlist_page(feature_wishlist, transcripts)
-            
-            urls = {
-                "pain_point_report": pain_point_url,
-                "feature_wishlist": feature_url
-            }
-            
-            logger.info("Successfully created Notion reports")
-            return urls
-            
-        except Exception as e:
-            logger.error(f"Error creating Notion reports: {str(e)}")
-            return self._get_mock_urls()
+        if self.api_key and self.database_id:
+            logger.info(
+                "Notion credentials detected, but live Notion publishing is not "
+                "implemented; using simulated report URLs"
+            )
+        else:
+            logger.warning(
+                "Notion credentials incomplete or missing, using simulated report URLs"
+            )
+
+        return self._get_mock_urls()
     
     def _create_pain_point_page(
         self,
@@ -70,9 +59,6 @@ class NotionReporter:
         transcripts: List[Dict[str, Any]]
     ) -> str:
         """Create pain point analysis page in Notion"""
-        
-        # Build page content (for future Notion API implementation)
-        _content = self._build_pain_point_content(report, transcripts)
         
         if not self.api_key:
             return f"https://notion.so/pain-point-analysis-mock"
@@ -87,9 +73,6 @@ class NotionReporter:
         transcripts: List[Dict[str, Any]]
     ) -> str:
         """Create feature wishlist page in Notion"""
-        
-        # Build page content (for future Notion API implementation)
-        _content = self._build_feature_content(features, transcripts)
         
         if not self.api_key:
             return f"https://notion.so/feature-wishlist-mock"

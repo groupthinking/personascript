@@ -54,13 +54,15 @@ class GitHubIssueCreator:
                 issue_url = issue_data['html_url']
                 logger.info(f"Successfully created issue: {issue_url}")
                 return issue_url
-            else:
-                logger.error(f"Failed to create issue: {response.status_code} - {response.text}")
-                return self._get_mock_url()
+            
+            logger.error(f"Failed to create issue: {response.status_code} - {response.text}")
+            raise RuntimeError(
+                f"GitHub issue creation failed with status {response.status_code}"
+            )
                 
-        except Exception as e:
-            logger.error(f"Error creating GitHub issue: {str(e)}")
-            return self._get_mock_url()
+        except Exception:
+            logger.error("Error creating GitHub issue", exc_info=True)
+            raise
     
     def _get_mock_url(self) -> str:
         """Get mock GitHub issue URL"""

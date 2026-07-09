@@ -38,23 +38,23 @@ Generates comprehensive interview questions using OpenAI GPT-4.
 - Template support
 
 #### 4. **User Recruitment** (`recruitment.py`)
-Manages participant recruitment via UserTesting.com API.
+Builds simulated participant cohorts shaped like UserTesting results.
 
 **Capabilities:**
 - Target profile matching
 - Configurable participant count
-- Mock recruitment for testing
+- Simulated recruitment for testing
 
 #### 5. **Interview Scheduler** (`scheduling.py`)
-Handles scheduling and conducting interviews via Zoom API.
+Builds simulated interview schedules and recording metadata.
 
 **Functions:**
-- Interview scheduling with calendar management
-- Automated recording
-- Mock scheduling for development
+- Interview scheduling with calendar-style spacing
+- Automated recording metadata generation
+- Simulated scheduling for development
 
 #### 6. **Transcription Service** (`transcription.py`)
-Converts interview recordings to text using OpenAI Whisper.
+Converts interview recordings to realistic simulated transcript text.
 
 **Features:**
 - Batch transcription
@@ -87,7 +87,7 @@ Extracts and prioritizes feature suggestions from interviews.
 - Low: <30 points
 
 #### 9. **Notion Reporter** (`reporting.py`)
-Publishes comprehensive reports to Notion.
+Builds report structures and simulated publishing URLs.
 
 **Report Types:**
 - Pain Point Analysis Report
@@ -128,9 +128,9 @@ Creates GitHub issues with analysis results.
    - Recruits 20+ participants
 
 4. **Schedule Interviews**
-   - Books 30-minute sessions
-   - Manages calendar conflicts
-   - Sends automated invitations
+   - Creates 30-minute simulated sessions
+   - Spaces interviews on a calendar-style schedule
+   - Returns Zoom-shaped metadata
 
 5. **Conduct Interviews**
    - Facilitates sessions
@@ -138,8 +138,8 @@ Creates GitHub issues with analysis results.
    - Ensures quality capture
 
 6. **Transcribe Recordings**
-   - Converts audio to text
-   - Uses OpenAI Whisper
+   - Converts recording metadata to transcript text
+   - Uses deterministic transcript templates
    - Generates clean transcripts
 
 7. **Analyze Pain Points**
@@ -158,8 +158,8 @@ Creates GitHub issues with analysis results.
    - Prioritizes by impact
 
 10. **Create Notion Reports**
-    - Publishes pain point analysis
-    - Publishes feature wish list
+    - Produces pain point analysis URLs
+    - Produces feature wish list URLs
     - Links interview artifacts
 
 11. **Construct GitHub Issue**
@@ -303,24 +303,24 @@ def _build_custom_content(self, data):
 ## API Integration Details
 
 ### OpenAI API
-- **Models Used:** GPT-4, Whisper
-- **Rate Limits:** Handled automatically
-- **Error Handling:** Fallback to mock data
+- **Models Used:** GPT-4 for question generation
+- **Fallback:** Deterministic analysis and transcript simulation
+- **Error Handling:** Falls back to built-in defaults
 
-### Zoom API
-- **OAuth 2.0:** Server-to-Server authentication
-- **Endpoints:** Meetings, Recordings
-- **Webhooks:** Optional for real-time updates
+### Zoom Integration Status
+- **Current State:** Simulated meeting and recording metadata
+- **Credentials:** Accepted but not yet used for live API calls
+- **Output:** Zoom-shaped IDs and URLs for testing flows
 
-### UserTesting.com API
-- **Authentication:** API Key
-- **Recruitment:** Demographic targeting
-- **Scheduling:** Integrated with Zoom
+### UserTesting.com Integration Status
+- **Current State:** Simulated participant recruitment
+- **Authentication:** API key accepted but not yet used for live API calls
+- **Output:** Profile-matched mock participants
 
-### Notion API
-- **Version:** 2022-06-28
-- **Authentication:** Bearer token
-- **Operations:** Page creation, database updates
+### Notion Integration Status
+- **Current State:** Simulated report publishing
+- **Authentication:** Credentials validated for presence only
+- **Output:** Placeholder report URLs
 
 ### GitHub API
 - **Version:** v3 (REST)
@@ -388,7 +388,7 @@ Low Priority Features
 
 3. **Testing**
    - Test without API credentials using mock mode
-   - Validate with real credentials in staging
+   - Validate credentialed paths in staging
    - Run full test suite before deployment
 
 4. **Scalability**

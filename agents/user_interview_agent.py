@@ -14,7 +14,6 @@ from .feature_extractor import FeatureWishListGenerator
 from .reporting import NotionReporter
 from .github_integration import GitHubIssueCreator
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -65,6 +64,7 @@ class UserInterviewAnalysisAgent:
             Dictionary containing URLs to outputs and execution summary
         """
         logger.info("Starting UserInterviewAnalysisAgent execution")
+        self.execution_log = []
         results = {}
         
         try:
@@ -165,10 +165,12 @@ class UserInterviewAnalysisAgent:
                 "recording_urls": [r.get("recording_url") for r in recordings],
                 "transcript_urls": [t.get("url") for t in transcripts],
                 "github_issue_url": github_issue_url,
+                "pain_points": pain_points,
+                "feature_wishlist": feature_wishlist,
                 "execution_log": self.execution_log
             }
             
-        except Exception as e:
+        except Exception:
             # Log detailed error internally while sanitizing external error messages
             logger.error("Error during execution", exc_info=True)
             return {
@@ -179,6 +181,8 @@ class UserInterviewAnalysisAgent:
                 "recording_urls": [],
                 "transcript_urls": [],
                 "github_issue_url": None,
+                "pain_points": [],
+                "feature_wishlist": [],
                 "execution_log": self.execution_log
             }
     

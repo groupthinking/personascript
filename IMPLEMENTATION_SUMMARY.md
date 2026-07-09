@@ -22,40 +22,40 @@ All 12 steps of the execution plan have been successfully implemented and tested
 |------|-----------|--------|--------------|
 | 1 | Context Parser | ✅ | Value proposition analysis, objective setting |
 | 2 | Question Generator | ✅ | AI-powered, template support, category-based |
-| 3 | User Recruitment | ✅ | UserTesting.com integration, profile matching |
-| 4 | Interview Scheduler | ✅ | Zoom integration, calendar management |
+| 3 | User Recruitment | ✅ | Simulated recruitment, profile matching |
+| 4 | Interview Scheduler | ✅ | Simulated scheduling, calendar-style spacing |
 | 5 | Interview Conductor | ✅ | Recording, quality assurance |
-| 6 | Transcription Service | ✅ | OpenAI Whisper, batch processing |
+| 6 | Transcription Service | ✅ | Simulated transcript generation, batch processing |
 | 7 | Pain Point Analyzer | ✅ | NLP analysis, sentiment assessment |
 | 8 | Report Synthesizer | ✅ | Comprehensive summaries, recommendations |
 | 9 | Feature Extractor | ✅ | Prioritization algorithm, alignment scoring |
-| 10 | Notion Reporter | ✅ | Formatted reports, artifact linking |
+| 10 | Notion Reporter | ✅ | Formatted report scaffolding, artifact linking |
 | 11 | Issue Constructor | ✅ | Detailed content generation |
 | 12 | GitHub Creator | ✅ | Automated issue creation |
 
-### 3. ✅ API Integrations
+### 3. ✅ Integration Status
 
-All required API integrations implemented:
+Current external-service behavior:
 
-- **OpenAI API** (GPT-4, Whisper)
-  - Question generation
-  - Transcription
-  - NLP analysis
+- **OpenAI API**
+  - Optional GPT-4 question generation
+  - Pain-point and feature extraction currently use deterministic logic
+  - Transcription is currently simulated
   
-- **Zoom API**
-  - Meeting scheduling
-  - Recording management
-  - Calendar synchronization
+- **Zoom-style scheduling**
+  - Simulated meeting scheduling
+  - Simulated recording metadata
+  - No live Zoom API calls yet
 
-- **UserTesting.com API**
-  - Participant recruitment
-  - Profile filtering
-  - Scheduling coordination
+- **UserTesting-style recruitment**
+  - Simulated participant recruitment
+  - Profile-shaped participant data
+  - No live UserTesting API calls yet
 
-- **Notion API**
-  - Report publishing
-  - Page creation
-  - Content formatting
+- **Notion-style reporting**
+  - Report content scaffolding
+  - Placeholder report URLs
+  - No live Notion API calls yet
 
 - **GitHub API**
   - Issue creation
@@ -64,7 +64,7 @@ All required API integrations implemented:
 
 ### 4. ✅ Mock Mode for Testing
 
-All components include mock implementations:
+Most components include simulated implementations:
 - Works without any API credentials
 - Generates realistic test data
 - Enables development and testing
@@ -72,7 +72,7 @@ All components include mock implementations:
 
 ### 5. ✅ Comprehensive Testing
 
-- 10 unit tests covering all major functionality
+- 13 unit tests covering all major functionality
 - 100% test pass rate
 - Mock data validation
 - Integration testing ready
@@ -123,23 +123,23 @@ pydantic>=2.0.0    # Data validation
 
 The agent produces all required outputs:
 
-### 1. Pain Point Analysis Report (Notion)
+### 1. Pain Point Analysis Report (Placeholder URL)
 - Executive summary
 - Categorized pain points
 - Frequency and severity analysis
 - Supporting quotes
 - Actionable recommendations
 
-### 2. Prioritized Feature Wish List (Notion)
+### 2. Prioritized Feature Wish List (Placeholder URL)
 - Feature descriptions
 - Priority scores (Critical/High/Medium/Low)
 - Frequency of mention
 - Alignment with value proposition
 - Category classification
 
-### 3. Interview Recordings (Zoom)
+### 3. Interview Recordings (Simulated)
 - 20+ video/audio recordings
-- Accessible via Zoom cloud storage
+- Simulated recording URLs
 - Download links available
 
 ### 4. Transcripts

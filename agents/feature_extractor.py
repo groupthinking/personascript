@@ -68,25 +68,13 @@ class FeatureWishListGenerator:
     ) -> List[Dict[str, Any]]:
         """Extract feature suggestions from transcript"""
         
-        if not self.client:
-            return self._extract_mock_features(transcript, pain_points)
-        
-        try:
-            # Use OpenAI to extract features
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are an expert at extracting feature suggestions from user interviews. Identify explicit and implicit feature requests."},
-                    {"role": "user", "content": f"Extract feature suggestions from this interview:\n\n{transcript['text']}\n\nList each feature with a brief description."}
-                ],
-                temperature=0.3
+        if self.client:
+            logger.info(
+                "OpenAI client configured, but structured AI feature parsing is not "
+                "implemented; using rule-based extraction"
             )
-            
-            return self._parse_features_response(response.choices[0].message.content, transcript)
-            
-        except Exception as e:
-            logger.error(f"Error extracting features: {str(e)}")
-            return self._extract_mock_features(transcript, pain_points)
+
+        return self._extract_mock_features(transcript, pain_points)
     
     def _extract_mock_features(
         self,
@@ -125,14 +113,15 @@ class FeatureWishListGenerator:
         }
         
         for feature, keywords in feature_patterns.items():
-            if any(keyword in text for keyword in keywords):
+            keyword_mentioned = any(keyword in text for keyword in keywords)
+            if keyword_mentioned:
                 features.append({
                     "feature": feature,
                     "description": self._generate_description(feature),
                     "category": self._categorize_feature(feature),
                     "source": transcript['participant']['name'],
                     "transcript_id": transcript['id'],
-                    "mentioned_explicitly": any(f'"{keyword}"' in text for keyword in keywords)
+                    "mentioned_explicitly": keyword_mentioned
                 })
         
         return features

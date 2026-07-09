@@ -1,6 +1,6 @@
 """
 Transcription Service Module
-Handles transcription of interview recordings using OpenAI Whisper
+Builds simulated interview transcripts from recording metadata
 """
 import logging
 from typing import List, Dict, Any
@@ -46,19 +46,15 @@ class TranscriptionService:
         Returns:
             Transcript data
         """
-        if not self.client:
-            logger.warning("OpenAI client not configured, using mock transcription")
-            return self._mock_transcription(recording)
-        
-        try:
-            # In a real implementation, this would use Whisper API
-            # For now, we'll simulate transcription
-            transcript = self._simulate_transcription(recording)
-            return transcript
-            
-        except Exception as e:
-            logger.error(f"Error transcribing recording {recording['id']}: {str(e)}")
-            return self._mock_transcription(recording)
+        if self.client:
+            logger.info(
+                "OpenAI client configured, but Whisper transcription is not implemented; "
+                "using simulated transcript"
+            )
+        else:
+            logger.warning("OpenAI client not configured, using simulated transcription")
+
+        return self._mock_transcription(recording)
     
     def _simulate_transcription(self, recording: Dict[str, Any]) -> Dict[str, Any]:
         """Simulate transcription with realistic content"""
