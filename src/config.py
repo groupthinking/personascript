@@ -27,6 +27,16 @@ def get_config() -> Dict[str, Any]:
             "token": os.environ.get("GITHUB_TOKEN"),
             "repo": os.environ.get("GITHUB_REPO", "groupthinking/personascript"),
         },
+        "intercom": {
+            "api_key": os.environ.get("INTERCOM_API_KEY"),
+        },
+        "zendesk": {
+            "subdomain": os.environ.get("ZENDESK_SUBDOMAIN", "personascript"),
+            "api_token": os.environ.get("ZENDESK_API_TOKEN"),
+        },
+        "loom": {
+            "api_key": os.environ.get("LOOM_API_KEY"),
+        },
     }
 
 
