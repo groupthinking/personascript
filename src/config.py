@@ -27,6 +27,17 @@ def get_config() -> Dict[str, Any]:
             "token": os.environ.get("GITHUB_TOKEN"),
             "repo": os.environ.get("GITHUB_REPO", "groupthinking/personascript"),
         },
+        "intercom": {
+            "access_token": os.environ.get("INTERCOM_ACCESS_TOKEN"),
+        },
+        "linear": {
+            "api_key": os.environ.get("LINEAR_API_KEY"),
+        },
+        "zoom": {
+            "client_id": os.environ.get("ZOOM_CLIENT_ID"),
+            "client_secret": os.environ.get("ZOOM_CLIENT_SECRET"),
+            "account_id": os.environ.get("ZOOM_ACCOUNT_ID"),
+        }
     }
 
 
@@ -61,4 +72,15 @@ export GOOGLE_CREDENTIALS_PATH="/path/to/google-credentials.json"
 # GitHub API
 export GITHUB_TOKEN="your_github_token_here"
 export GITHUB_REPO="owner/repository"
+
+# Intercom API
+export INTERCOM_ACCESS_TOKEN="your_intercom_access_token_here"
+
+# Linear API
+export LINEAR_API_KEY="your_linear_api_key_here"
+
+# Zoom API
+export ZOOM_CLIENT_ID="your_zoom_client_id_here"
+export ZOOM_CLIENT_SECRET="your_zoom_client_secret_here"
+export ZOOM_ACCOUNT_ID="your_zoom_account_id_here"
 """
