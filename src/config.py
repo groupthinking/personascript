@@ -27,6 +27,15 @@ def get_config() -> Dict[str, Any]:
             "token": os.environ.get("GITHUB_TOKEN"),
             "repo": os.environ.get("GITHUB_REPO", "groupthinking/personascript"),
         },
+        "hubspot": {
+            "api_key": os.environ.get("HUBSPOT_API_KEY"),
+            "access_token": os.environ.get("HUBSPOT_ACCESS_TOKEN"),
+        },
+        "contentful": {
+            "space_id": os.environ.get("CONTENTFUL_SPACE_ID"),
+            "access_token": os.environ.get("CONTENTFUL_ACCESS_TOKEN"),
+            "environment_id": os.environ.get("CONTENTFUL_ENVIRONMENT_ID", "master"),
+        }
     }
 
 
