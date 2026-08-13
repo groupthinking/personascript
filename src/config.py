@@ -27,6 +27,14 @@ def get_config() -> Dict[str, Any]:
             "token": os.environ.get("GITHUB_TOKEN"),
             "repo": os.environ.get("GITHUB_REPO", "groupthinking/personascript"),
         },
+        "apollo": {
+            "api_key": os.environ.get("APOLLO_API_KEY"),
+        },
+        "linkedin": {
+            "client_id": os.environ.get("LINKEDIN_CLIENT_ID"),
+            "client_secret": os.environ.get("LINKEDIN_CLIENT_SECRET"),
+            "account_id": os.environ.get("LINKEDIN_ACCOUNT_ID"),
+        }
     }
 
 
@@ -61,4 +69,12 @@ export GOOGLE_CREDENTIALS_PATH="/path/to/google-credentials.json"
 # GitHub API
 export GITHUB_TOKEN="your_github_token_here"
 export GITHUB_REPO="owner/repository"
+
+# Apollo.io API
+export APOLLO_API_KEY="your_apollo_api_key_here"
+
+# LinkedIn Ads API
+export LINKEDIN_CLIENT_ID="your_linkedin_client_id_here"
+export LINKEDIN_CLIENT_SECRET="your_linkedin_client_secret_here"
+export LINKEDIN_ACCOUNT_ID="your_linkedin_account_id_here"
 """
