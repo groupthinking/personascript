@@ -82,6 +82,43 @@ class TestGoogleDocsIntegration:
         assert result is True
 
 
+from src.integrations.figma_integration import FigmaIntegration
+
+
+class TestFigmaIntegration:
+    """Tests for FigmaIntegration."""
+
+    def test_initialization(self):
+        """Test Figma integration initialization."""
+        integration = FigmaIntegration()
+        assert integration is not None
+        assert integration.token is None
+
+        integration_with_token = FigmaIntegration(token="test_token")
+        assert integration_with_token.token == "test_token"
+
+    def test_create_design_system(self):
+        """Test creating figma design system."""
+        integration = FigmaIntegration()
+        styles = {"primary": "#111827", "secondary": "#4F46E5"}
+        url = integration.create_design_system(styles)
+        assert url
+        parsed = urlparse(url)
+        assert parsed.scheme == "https"
+        assert parsed.netloc.endswith("figma.com")
+        assert "/file/" in parsed.path
+
+    def test_create_prototype(self):
+        """Test creating figma prototype."""
+        integration = FigmaIntegration()
+        url = integration.create_prototype("create a campaign", "https://figma.com/file/mock-ds")
+        assert url
+        parsed = urlparse(url)
+        assert parsed.scheme == "https"
+        assert parsed.netloc.endswith("figma.com")
+        assert "/proto/" in parsed.path
+
+
 class TestGitHubIntegration:
     """Tests for GitHubIntegration."""
     

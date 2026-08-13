@@ -27,6 +27,9 @@ def get_config() -> Dict[str, Any]:
             "token": os.environ.get("GITHUB_TOKEN"),
             "repo": os.environ.get("GITHUB_REPO", "groupthinking/personascript"),
         },
+        "figma": {
+            "token": os.environ.get("FIGMA_API_TOKEN"),
+        },
     }
 
 
@@ -61,4 +64,7 @@ export GOOGLE_CREDENTIALS_PATH="/path/to/google-credentials.json"
 # GitHub API
 export GITHUB_TOKEN="your_github_token_here"
 export GITHUB_REPO="owner/repository"
+
+# Figma API
+export FIGMA_API_TOKEN="your_figma_api_token_here"
 """
