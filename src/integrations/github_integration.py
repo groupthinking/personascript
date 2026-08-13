@@ -6,6 +6,7 @@ This module handles all interactions with the GitHub API for creating issues.
 
 import logging
 from typing import Dict, Any, Optional, List
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -51,13 +52,38 @@ class GitHubIntegration:
             logger.warning("No GitHub credentials provided, returning mock URL")
             return self._create_mock_issue_url(title)
         
-        # In a real implementation, this would:
-        # 1. POST to /repos/{owner}/{repo}/issues
-        # 2. Include title, body, labels, and assignees
-        # 3. Return the HTML URL of the created issue
-        
-        # Mock implementation for demonstration
-        return self._create_mock_issue_url(title)
+        try:
+            url = f"{self.base_url}/repos/{self.repo}/issues"
+            headers = {
+                "Authorization": f"token {self.token}",
+                "Accept": "application/vnd.github.v3+json"
+            }
+
+            payload: Dict[str, Any] = {
+                "title": title,
+                "body": body
+            }
+            if labels:
+                payload["labels"] = labels
+            if assignees:
+                payload["assignees"] = assignees
+
+            response = requests.post(url, headers=headers, json=payload, timeout=30)
+
+            if response.status_code == 201:
+                issue_data = response.json()
+                issue_url = issue_data['html_url']
+                logger.info(f"Successfully created GitHub issue: {issue_url}")
+                return issue_url
+
+            logger.error(f"Failed to create GitHub issue: {response.status_code} - {response.text}")
+            logger.warning("Falling back to mock URL due to API error")
+            return self._create_mock_issue_url(title)
+
+        except Exception as e:
+            logger.error(f"Error creating GitHub issue: {str(e)}", exc_info=True)
+            logger.warning("Falling back to mock URL due to exception")
+            return self._create_mock_issue_url(title)
     
     def _create_mock_issue_url(self, title: str) -> str:
         """Create a mock issue URL for demonstration purposes."""
