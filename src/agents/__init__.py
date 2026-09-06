@@ -2,6 +2,7 @@
 
 from .persona_creator_agent import PersonaScriptPersonaCreatorAgent
 from .prd_drafter_agent import PersonaScriptPRDDrafterAgent
+from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAgentOutputs
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
@@ -15,6 +16,9 @@ from .content_iteration_agent import (
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
     "PersonaScriptPRDDrafterAgent",
+    "AIApiIntegrationAgent",
+    "AIAgentInputs",
+    "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
     "AgentInputs",
