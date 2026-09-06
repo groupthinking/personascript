@@ -2,8 +2,28 @@
 
 from .persona_creator_agent import PersonaScriptPersonaCreatorAgent
 from .architecture_agent import PersonaScriptArchitectureAgent
+from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAgentOutputs
+from .content_iteration_agent import (
+    PersonaScriptContentIterationAgent,
+    ContentAsset,
+    AgentInputs,
+    AgentOutputs,
+    WeeklyAnalyticsReport,
+    ABTestResultsSummary,
+    BacklogItem
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
-    "PersonaScriptArchitectureAgent"
+    "PersonaScriptArchitectureAgent",
+    "AIApiIntegrationAgent",
+    "AIAgentInputs",
+    "AIAgentOutputs",
+    "PersonaScriptContentIterationAgent",
+    "ContentAsset",
+    "AgentInputs",
+    "AgentOutputs",
+    "WeeklyAnalyticsReport",
+    "ABTestResultsSummary",
+    "BacklogItem"
 ]
