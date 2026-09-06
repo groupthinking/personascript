@@ -209,7 +209,9 @@ def test_create_linear_issues(agent, sample_inputs):
     updated = agent._create_linear_issues([item])
     assert len(updated) == 1
     assert updated[0].linear_issue_url is not None
-    assert updated[0].linear_issue_url.startswith("https://linear.app")
+    linear_url = urlparse(updated[0].linear_issue_url)
+    assert linear_url.scheme == "https"
+    assert linear_url.netloc == "linear.app"
 
 
 def test_full_execution_flow(agent, sample_inputs):
@@ -225,7 +227,7 @@ def test_full_execution_flow(agent, sample_inputs):
     assert outputs.github_issue_url
     parsed = urlparse(outputs.github_issue_url)
     assert parsed.scheme == "https"
-    assert parsed.netloc.endswith("github.com")
+    assert parsed.netloc == "github.com"
 
     # Check execution log completed 9 steps (with start and complete for each step)
     assert len(agent.execution_log) == 18

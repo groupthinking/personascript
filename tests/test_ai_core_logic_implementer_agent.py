@@ -152,7 +152,7 @@ def test_execute_and_generate_blueprint(sample_inputs):
     assert outputs.github_issue_url
     parsed = urlparse(outputs.github_issue_url)
     assert parsed.scheme == "https"
-    assert parsed.netloc.endswith("github.com")
+    assert parsed.netloc == "github.com"
 
     # Cleanup
     if os.path.exists(blueprint_path):
@@ -173,7 +173,7 @@ def test_create_issue_real_http_fallback(sample_inputs, monkeypatch):
     assert outputs.github_issue_url
     parsed = urlparse(outputs.github_issue_url)
     assert parsed.scheme == "https"
-    assert parsed.netloc.endswith("github.com")
+    assert parsed.netloc == "github.com"
     assert "groupthinking/personascript" in parsed.path
 
     # Cleanup
