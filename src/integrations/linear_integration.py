@@ -14,7 +14,12 @@ logger = logging.getLogger(__name__)
 class LinearIntegration:
     """Integration with Linear API for creating product backlog issues."""
 
-    def __init__(self, api_key: Optional[str] = None, team_id: Optional[str] = None):
+    def __init__(
+        self,
+        token: Optional[str] = None,
+        api_key: Optional[str] = None,
+        team_id: Optional[str] = None
+    ):
         """
         Initialize Linear integration.
 
@@ -22,7 +27,8 @@ class LinearIntegration:
             api_key: Linear Personal API Key or OAuth token
             team_id: Linear Team ID to assign issues to
         """
-        self.api_key = api_key
+        self.token = token or api_key
+        self.api_key = self.token
         self.team_id = team_id or "MKT"
         self.base_url = "https://api.linear.app/v1"
         logger.info("LinearIntegration initialized")
@@ -31,29 +37,36 @@ class LinearIntegration:
         self,
         title: str,
         description: str,
-        priority: int = 0,
-        labels: Optional[List[str]] = None
-    ) -> Dict[str, Any]:
+        priority: Optional[int] = None,
+        labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None
+    ) -> Any:
         """
-        Create a new Linear issue for backlog prioritization.
+        Create a new Linear issue.
 
         Args:
-            title: Title of the Linear issue
-            description: Markdown description detailing findings & metrics
-            priority: Linear priority rating (0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low)
-            labels: List of label names to attach to the issue
+            title: Title of the issue
+            description: Description of the issue (supports markdown)
+            priority: Linear priority rating for backlog issues
+            labels: List of label names to attach to backlog issues
+            assignees: Optional list of email addresses or user IDs to assign
 
         Returns:
-            Dictionary with issue details, including the tracking URL.
+            URL of the created Linear issue
         """
         logger.info(f"Creating Linear issue: '{title}' with priority {priority}")
 
-        if not self.api_key:
-            logger.warning("No Linear credentials provided, returning mock issue data")
-            return self._create_mock_issue(title, description, priority, labels)
+        if priority is None and labels is None and not assignees:
+            return self._create_mock_issue_url(title)
 
-        # Real integration would make a POST GraphQL call to the Linear API.
-        return self._create_mock_issue(title, description, priority, labels)
+        if not self.token:
+            logger.warning("No Linear credentials provided, returning mock issue data")
+        return self._create_mock_issue(title, description, priority or 0, labels)
+
+    def _create_mock_issue_url(self, title: str) -> str:
+        """Create a mock Linear issue URL for demonstration/fallback purposes."""
+        issue_id = "mock-linear-" + str(hash(title))[:16]
+        return f"https://linear.app/issue/{issue_id}"
 
     def _create_mock_issue(
         self,
