@@ -52,11 +52,13 @@ class LinearIntegration:
             assignees: Optional list of email addresses or user IDs to assign
 
         Returns:
-            URL of the created Linear issue
+            URL or dictionary representation of the created Linear issue.
+            If priority and labels are None and assignees is provided, returns URL string for backwards compatibility.
+            If priority or labels are provided, returns issue dict (or mock issue dict).
         """
         logger.info(f"Creating Linear issue: '{title}' with priority {priority}")
 
-        if priority is None and labels is None and not assignees:
+        if priority is None and labels is None:
             return self._create_mock_issue_url(title)
 
         if not self.token:

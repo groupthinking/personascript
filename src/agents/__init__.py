@@ -12,6 +12,17 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .targeted_outreach_agent import (
+    TargetedOutreachAgent,
+    ICPDetails,
+    CampaignConfig,
+    AdCreative,
+    Lead,
+    PersonalizedMessage,
+    AdPerformanceMetrics,
+    AgentInputs as TargetedOutreachInputs,
+    AgentOutputs as TargetedOutreachOutputs
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +36,14 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "TargetedOutreachAgent",
+    "ICPDetails",
+    "CampaignConfig",
+    "AdCreative",
+    "Lead",
+    "PersonalizedMessage",
+    "AdPerformanceMetrics",
+    "TargetedOutreachInputs",
+    "TargetedOutreachOutputs"
 ]
