@@ -3,6 +3,11 @@
 from .persona_creator_agent import PersonaScriptPersonaCreatorAgent
 from .prd_drafter_agent import PersonaScriptPRDDrafterAgent
 from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAgentOutputs
+from .cicd_pipeline_architect_agent import (
+    CICDPipelineArchitectAgent,
+    CICDPipelineInputs,
+    CICDPipelineOutputs
+)
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
@@ -19,6 +24,9 @@ __all__ = [
     "AIApiIntegrationAgent",
     "AIAgentInputs",
     "AIAgentOutputs",
+    "CICDPipelineArchitectAgent",
+    "CICDPipelineInputs",
+    "CICDPipelineOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
     "AgentInputs",
