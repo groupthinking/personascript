@@ -143,7 +143,8 @@ def test_full_execution(agent, sample_inputs):
     assert notion_parsed.netloc == "notion.so"
 
     # Verify Linear URL format
-    linear_parsed = urlparse(outputs.linear_issue_url)
+    linear_url = outputs.linear_issue_url if isinstance(outputs.linear_issue_url, str) else outputs.linear_issue_url.get("url")
+    linear_parsed = urlparse(linear_url)
     assert linear_parsed.scheme == "https"
     assert linear_parsed.netloc == "linear.app"
 

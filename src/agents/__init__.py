@@ -6,11 +6,19 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as ContentIterationAgentInputs,
+    AgentOutputs as ContentIterationAgentOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .martech_partnership_agent import (
+    MarTechPartnershipScoutAgent,
+    PartnershipCriteria,
+    PartnershipLead,
+    ProposalOutline,
+    AgentInputs as PartnershipAgentInputs,
+    AgentOutputs as PartnershipAgentOutputs
 )
 
 __all__ = [
@@ -21,9 +29,15 @@ __all__ = [
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "ContentIterationAgentInputs",
+    "ContentIterationAgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "MarTechPartnershipScoutAgent",
+    "PartnershipCriteria",
+    "PartnershipLead",
+    "ProposalOutline",
+    "PartnershipAgentInputs",
+    "PartnershipAgentOutputs"
 ]
