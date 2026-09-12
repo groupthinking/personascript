@@ -451,11 +451,12 @@ class PersonaScriptPRDDrafterAgent:
             f"3. Sign off on acceptance criteria for Dynamic Content Generation."
         )
 
-        linear_url = self.linear_integration.create_issue(
+        res = self.linear_integration.create_issue(
             title=title,
             description=description,
             assignees=["Product Team"]
         )
+        linear_url = res if isinstance(res, str) else (res.get("url", "") if isinstance(res, dict) else str(res))
         logger.info(f"Created Linear issue: {linear_url}")
         return linear_url
 
