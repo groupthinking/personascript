@@ -6,11 +6,16 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as ContentIterationAgentInputs,
+    AgentOutputs as ContentIterationAgentOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .sales_growth_strategist_agent import (
+    SalesGrowthStrategistAgent,
+    AgentInputs as SalesGrowthAgentInputs,
+    AgentOutputs as SalesGrowthAgentOutputs
 )
 
 __all__ = [
@@ -21,9 +26,12 @@ __all__ = [
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "ContentIterationAgentInputs",
+    "ContentIterationAgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "SalesGrowthStrategistAgent",
+    "SalesGrowthAgentInputs",
+    "SalesGrowthAgentOutputs"
 ]

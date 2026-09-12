@@ -9,6 +9,9 @@ from .openai_integration import OpenAIIntegration
 from .anthropic_integration import AnthropicIntegration
 from .huggingface_integration import HuggingFaceIntegration
 from .wandb_integration import WandbIntegration
+from .salesforce_integration import SalesforceIntegration
+from .gong_integration import GongIntegration
+from .zoominfo_integration import ZoomInfoIntegration
 
 __all__ = [
     "MiroIntegration",
@@ -19,5 +22,8 @@ __all__ = [
     "OpenAIIntegration",
     "AnthropicIntegration",
     "HuggingFaceIntegration",
-    "WandbIntegration"
+    "WandbIntegration",
+    "SalesforceIntegration",
+    "GongIntegration",
+    "ZoomInfoIntegration"
 ]
