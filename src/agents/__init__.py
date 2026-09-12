@@ -12,6 +12,11 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .architecture_agent import (
+    PersonaScriptArchitectureAgent,
+    ArchitectureInputs,
+    ArchitectureOutputs
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +30,8 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptArchitectureAgent",
+    "ArchitectureInputs",
+    "ArchitectureOutputs"
 ]

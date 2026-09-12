@@ -56,12 +56,11 @@ class LinearIntegration:
         """
         logger.info(f"Creating Linear issue: '{title}' with priority {priority}")
 
-        if priority is None and labels is None and not assignees:
+        if not self.token:
+            logger.warning("No Linear credentials provided, returning mock issue URL")
             return self._create_mock_issue_url(title)
 
-        if not self.token:
-            logger.warning("No Linear credentials provided, returning mock issue data")
-        return self._create_mock_issue(title, description, priority or 0, labels)
+        return self._create_mock_issue_url(title)
 
     def _create_mock_issue_url(self, title: str) -> str:
         """Create a mock Linear issue URL for demonstration/fallback purposes."""

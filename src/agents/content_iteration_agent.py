@@ -539,7 +539,10 @@ class PersonaScriptContentIterationAgent:
             )
 
             # Record the Linear issue URL back into the backlog item
-            item.linear_issue_url = linear_issue.get("url")
+            if isinstance(linear_issue, dict):
+                item.linear_issue_url = linear_issue.get("url")
+            else:
+                item.linear_issue_url = str(linear_issue)
             updated_items.append(item)
 
         return updated_items
