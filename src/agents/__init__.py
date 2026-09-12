@@ -12,6 +12,13 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .frontend_ui_agent import (
+    PersonaScriptFrontendUIAgent,
+    ComponentBlueprint,
+    UIBlueprint,
+    AgentInputs as FrontendUIAgentInputs,
+    AgentOutputs as FrontendUIAgentOutputs
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +32,10 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptFrontendUIAgent",
+    "ComponentBlueprint",
+    "UIBlueprint",
+    "FrontendUIAgentInputs",
+    "FrontendUIAgentOutputs"
 ]
