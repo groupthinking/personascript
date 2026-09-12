@@ -12,6 +12,15 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .mvp_roadmap_agent import (
+    PersonaScriptMVPDevelopmentRoadmapAgent,
+    RoadmapInputs,
+    RoadmapOutputs,
+    Epic,
+    Feature,
+    Milestone,
+    UserStory
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +34,12 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptMVPDevelopmentRoadmapAgent",
+    "RoadmapInputs",
+    "RoadmapOutputs",
+    "Epic",
+    "Feature",
+    "Milestone",
+    "UserStory"
 ]
