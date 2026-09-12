@@ -19,6 +19,10 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .internal_tool_setup_agent import (
+    PersonaScriptInternalToolSetupAgent,
+    ProjectSetupRequest
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -32,5 +36,7 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptInternalToolSetupAgent",
+    "ProjectSetupRequest"
 ]

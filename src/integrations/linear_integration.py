@@ -89,3 +89,109 @@ class LinearIntegration:
             "url": issue_url,
             "status": "Todo"
         }
+
+    def create_team(self, name: str, key: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Create a new team in Linear.
+
+        Args:
+            name: Name of the team
+            key: Short key for team issues (e.g. "PS")
+
+        Returns:
+            Dictionary with team ID, name, key, and URL.
+        """
+        team_key = key or "".join([w[0].upper() for w in name.split()[:3]]) or "TEAM"
+        team_id = f"team-{abs(hash(name)) % 100000}"
+        team_url = f"https://linear.app/personascript/team/{team_key.lower()}"
+        logger.info(f"Creating Linear team: {name} (Key: {team_key})")
+        return {
+            "id": team_id,
+            "name": name,
+            "key": team_key,
+            "url": team_url
+        }
+
+    def create_project(self, name: str, team_id: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Create a new project in Linear.
+
+        Args:
+            name: Name of the project
+            team_id: Associated team ID
+
+        Returns:
+            Dictionary with project ID, name, and URL.
+        """
+        slug = name.lower().replace(" ", "-")
+        project_id = f"proj-{abs(hash(name)) % 100000}"
+        project_url = f"https://linear.app/personascript/project/{slug}"
+        logger.info(f"Creating Linear project: {name} under team {team_id or self.team_id}")
+        return {
+            "id": project_id,
+            "name": name,
+            "team_id": team_id or self.team_id,
+            "url": project_url
+        }
+
+    def create_sprint(
+        self,
+        project_id: str,
+        duration_weeks: int = 2,
+        name: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Define initial sprint or cycle in Linear.
+
+        Args:
+            project_id: ID of the project
+            duration_weeks: Sprint duration in weeks
+            name: Name of the sprint
+
+        Returns:
+            Dictionary with sprint ID, name, duration, and URL.
+        """
+        sprint_name = name or f"Sprint 1 ({duration_weeks}w)"
+        sprint_id = f"sprint-{abs(hash(sprint_name)) % 100000}"
+        sprint_url = f"https://linear.app/personascript/cycle/{sprint_id}"
+        logger.info(f"Defining Linear sprint: '{sprint_name}' ({duration_weeks} weeks) for project {project_id}")
+        return {
+            "id": sprint_id,
+            "name": sprint_name,
+            "project_id": project_id,
+            "duration_weeks": duration_weeks,
+            "url": sprint_url
+        }
+
+    def setup_project(
+        self,
+        project_name: str,
+        team_members: List[str],
+        initial_sprint_duration_weeks: int = 2
+    ) -> Dict[str, Any]:
+        """
+        Automate end-to-end configuration of Linear team, project, sprint, and assignments.
+
+        Args:
+            project_name: Name of the project
+            team_members: List of assigned team members
+            initial_sprint_duration_weeks: Sprint duration in weeks
+
+        Returns:
+            Dictionary summarizing configured Linear resources and direct URLs.
+        """
+        team_info = self.create_team(name=f"{project_name} Team")
+        project_info = self.create_project(name=project_name, team_id=team_info["id"])
+        sprint_info = self.create_sprint(
+            project_id=project_info["id"],
+            duration_weeks=initial_sprint_duration_weeks
+        )
+
+        return {
+            "team": team_info,
+            "project": project_info,
+            "sprint": sprint_info,
+            "team_members": team_members,
+            "team_url": team_info["url"],
+            "project_url": project_info["url"]
+        }
