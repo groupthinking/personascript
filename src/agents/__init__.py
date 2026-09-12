@@ -13,11 +13,19 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as ContentIterationInputs,
+    AgentOutputs as ContentIterationOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .beta_program_manager_agent import (
+    BetaProgramManagerAgent,
+    AlphaCustomer,
+    StressTestPlan,
+    ComprehensiveBetaReport,
+    AgentInputs as BetaProgramInputs,
+    AgentOutputs as BetaProgramOutputs
 )
 
 __all__ = [
@@ -28,9 +36,15 @@ __all__ = [
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "ContentIterationInputs",
+    "ContentIterationOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "BetaProgramManagerAgent",
+    "AlphaCustomer",
+    "StressTestPlan",
+    "ComprehensiveBetaReport",
+    "BetaProgramInputs",
+    "BetaProgramOutputs"
 ]
