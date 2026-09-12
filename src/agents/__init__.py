@@ -12,6 +12,14 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .figma_prototype_designer_agent import (
+    FigmaPrototypeDesignerAgent,
+    UserStoryRequirement,
+    MVPWorkflow,
+    BrandGuidelines,
+    FigmaAgentInputs,
+    FigmaAgentOutputs
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +33,11 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "FigmaPrototypeDesignerAgent",
+    "UserStoryRequirement",
+    "MVPWorkflow",
+    "BrandGuidelines",
+    "FigmaAgentInputs",
+    "FigmaAgentOutputs"
 ]
