@@ -9,6 +9,7 @@ from .openai_integration import OpenAIIntegration
 from .anthropic_integration import AnthropicIntegration
 from .huggingface_integration import HuggingFaceIntegration
 from .wandb_integration import WandbIntegration
+from .slack_integration import SlackIntegration
 
 __all__ = [
     "MiroIntegration",
@@ -19,5 +20,6 @@ __all__ = [
     "OpenAIIntegration",
     "AnthropicIntegration",
     "HuggingFaceIntegration",
-    "WandbIntegration"
+    "WandbIntegration",
+    "SlackIntegration"
 ]
