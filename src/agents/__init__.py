@@ -6,11 +6,26 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as ContentIterationAgentInputs,
+    AgentOutputs as ContentIterationAgentOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .customer_onboarding_agent import (
+    CustomerOnboardingAndSupportAgent,
+    AgentInputs as CustomerOnboardingAgentInputs,
+    AgentOutputs as CustomerOnboardingAgentOutputs,
+    OnboardingSequenceSpec,
+    InAppSupportSpec,
+    KnowledgeBaseArticleSpec,
+    BrandGuidelines,
+    OnboardingSequenceOutput,
+    SupportChatOutput,
+    KnowledgeBaseArticleOutput,
+    LoomVideoOutput,
+    IntegrationConfigOutput,
+    ImplementationReport
 )
 
 __all__ = [
@@ -20,10 +35,22 @@ __all__ = [
     "AIAgentInputs",
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
-    "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "ContentIterationAgentInputs",
+    "ContentIterationAgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "CustomerOnboardingAndSupportAgent",
+    "CustomerOnboardingAgentInputs",
+    "CustomerOnboardingAgentOutputs",
+    "OnboardingSequenceSpec",
+    "InAppSupportSpec",
+    "KnowledgeBaseArticleSpec",
+    "BrandGuidelines",
+    "OnboardingSequenceOutput",
+    "SupportChatOutput",
+    "KnowledgeBaseArticleOutput",
+    "LoomVideoOutput",
+    "IntegrationConfigOutput",
+    "ImplementationReport"
 ]
