@@ -1,6 +1,13 @@
 """Agent modules for PersonaScript."""
 
 from .persona_creator_agent import PersonaScriptPersonaCreatorAgent
+from .cicd_pipeline_architect_agent import CICDPipelineArchitectAgent, CICDInputs, CICDOutputs
+
+__all__ = [
+    "PersonaScriptPersonaCreatorAgent",
+    "CICDPipelineArchitectAgent",
+    "CICDInputs",
+    "CICDOutputs"
 from .prd_drafter_agent import PersonaScriptPRDDrafterAgent
 from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAgentOutputs
 from .content_iteration_agent import (
