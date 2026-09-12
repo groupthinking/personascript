@@ -12,6 +12,14 @@ from .content_iteration_agent import (
     ABTestResultsSummary,
     BacklogItem
 )
+from .competitive_analysis_agent import (
+    PersonaScriptCompetitiveAnalysisAgent,
+    CompanyProfile,
+    CompetitorProfile,
+    CompetitorMatrix,
+    AgentInputs as CompetitiveAnalysisAgentInputs,
+    AgentOutputs as CompetitiveAnalysisAgentOutputs
+)
 
 __all__ = [
     "PersonaScriptPersonaCreatorAgent",
@@ -25,5 +33,11 @@ __all__ = [
     "AgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptCompetitiveAnalysisAgent",
+    "CompanyProfile",
+    "CompetitorProfile",
+    "CompetitorMatrix",
+    "CompetitiveAnalysisAgentInputs",
+    "CompetitiveAnalysisAgentOutputs"
 ]

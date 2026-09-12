@@ -134,7 +134,11 @@ class PersonaScriptPRDDrafterAgent:
         notion_prd_url = self._publish_to_notion(self.prd_content)
 
         # Step 7: Create Linear review issue
-        linear_issue_url = self._create_linear_issue(notion_prd_url)
+        linear_result = self._create_linear_issue(notion_prd_url)
+        if isinstance(linear_result, dict):
+            linear_issue_url = linear_result.get("url", "https://linear.app/issue/mock")
+        else:
+            linear_issue_url = str(linear_result)
 
         # Step 8: Create GitHub issue summarizing the task and linking outputs
         github_issue_url = self._create_github_issue(notion_prd_url, linear_issue_url, inputs)
