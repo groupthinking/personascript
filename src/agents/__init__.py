@@ -6,11 +6,20 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as IterationAgentInputs,
+    AgentOutputs as IterationAgentOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .persona_script_integration_agent import (
+    PersonaScriptIntegrationAgent,
+    PersonaScriptContent,
+    HubSpotObjectDefinition,
+    ContentfulContentModel,
+    IntegrationTestResult,
+    AgentInputs as IntegrationAgentInputs,
+    AgentOutputs as IntegrationAgentOutputs
 )
 
 __all__ = [
@@ -21,9 +30,16 @@ __all__ = [
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "IterationAgentInputs",
+    "IterationAgentOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptIntegrationAgent",
+    "PersonaScriptContent",
+    "HubSpotObjectDefinition",
+    "ContentfulContentModel",
+    "IntegrationTestResult",
+    "IntegrationAgentInputs",
+    "IntegrationAgentOutputs"
 ]
