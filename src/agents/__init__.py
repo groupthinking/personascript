@@ -6,11 +6,20 @@ from .ai_api_integration_agent import AIApiIntegrationAgent, AIAgentInputs, AIAg
 from .content_iteration_agent import (
     PersonaScriptContentIterationAgent,
     ContentAsset,
-    AgentInputs,
-    AgentOutputs,
+    AgentInputs as ContentIterationInputs,
+    AgentOutputs as ContentIterationOutputs,
     WeeklyAnalyticsReport,
     ABTestResultsSummary,
     BacklogItem
+)
+from .feature_planning_agent import (
+    PersonaScriptFeaturePlanningAgent,
+    FeatureRequirements,
+    AgentInputs as FeaturePlanningInputs,
+    AgentOutputs as FeaturePlanningOutputs,
+    RoadmapItem,
+    UpdatedRoadmap,
+    DraftReleaseNotes
 )
 
 __all__ = [
@@ -21,9 +30,16 @@ __all__ = [
     "AIAgentOutputs",
     "PersonaScriptContentIterationAgent",
     "ContentAsset",
-    "AgentInputs",
-    "AgentOutputs",
+    "ContentIterationInputs",
+    "ContentIterationOutputs",
     "WeeklyAnalyticsReport",
     "ABTestResultsSummary",
-    "BacklogItem"
+    "BacklogItem",
+    "PersonaScriptFeaturePlanningAgent",
+    "FeatureRequirements",
+    "FeaturePlanningInputs",
+    "FeaturePlanningOutputs",
+    "RoadmapItem",
+    "UpdatedRoadmap",
+    "DraftReleaseNotes"
 ]
