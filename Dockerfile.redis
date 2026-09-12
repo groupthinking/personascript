@@ -1,0 +1,9 @@
+# PersonaScript Redis Dockerfile
+FROM redis:7-alpine
+
+# Copy custom Redis configuration
+COPY src/backend/redis.conf /usr/local/etc/redis/redis.conf
+
+EXPOSE 6379
+
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

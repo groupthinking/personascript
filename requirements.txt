@@ -6,6 +6,10 @@ dataclasses>=0.6; python_version < '3.7'
 pydantic>=2.0.0
 requests>=2.31.0
 python-dotenv>=1.0.0
+fastapi>=0.100.0
+uvicorn>=0.20.0
+email-validator>=2.0.0
+redis>=4.5.0
 
 # AI/ML Integrations
 langchain>=0.1.0

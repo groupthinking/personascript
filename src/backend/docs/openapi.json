@@ -1,0 +1,168 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PersonaScript Backend API",
+    "description": "PersonaScript Secure RESTful Backend API Service for User Authentication, Data Storage (PostgreSQL), Redis Caching, and AI Orchestration.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "summary": "Register User",
+        "description": "Register a new marketer user in PersonaScript.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password", "full_name"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "minLength": 6 },
+                  "full_name": { "type": "string" },
+                  "role": { "type": "string", "default": "marketer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully" },
+          "400": { "description": "Email already exists" }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "Login User",
+        "description": "Authenticate user credentials and return JWT bearer access token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "JWT bearer token issued" },
+          "401": { "description": "Invalid credentials" }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "summary": "Get Current User Profile",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Current user profile" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/v1/personas": {
+      "get": {
+        "summary": "List User Personas",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "List of buyer personas owned by authenticated user" }
+        }
+      },
+      "post": {
+        "summary": "Create Buyer Persona",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "role", "company_size"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": { "type": "string" },
+                  "company_size": { "type": "string" },
+                  "goals": { "type": "array", "items": { "type": "string" } },
+                  "challenges": { "type": "array", "items": { "type": "string" } },
+                  "pain_points": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Persona created successfully" }
+        }
+      }
+    },
+    "/api/v1/personas/{persona_id}": {
+      "get": {
+        "summary": "Get Persona by ID",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Persona details" }, "404": { "description": "Not found" } }
+      },
+      "put": {
+        "summary": "Update Persona",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Updated persona" } }
+      },
+      "delete": {
+        "summary": "Delete Persona",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "204": { "description": "Deleted persona" } }
+      }
+    },
+    "/api/v1/ai/generate": {
+      "post": {
+        "summary": "Generate AI Marketing Content",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["persona_id", "prompt_topic"],
+                "properties": {
+                  "persona_id": { "type": "string" },
+                  "funnel_stage": { "type": "string", "enum": ["Awareness", "Consideration", "Decision"], "default": "Awareness" },
+                  "prompt_topic": { "type": "string" },
+                  "preferred_model": { "type": "string", "default": "gpt-4o" },
+                  "target_format": { "type": "string", "default": "email" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Generated personalized content with Redis caching indicator" }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health Check",
+        "responses": {
+          "200": { "description": "System health and connection status" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
